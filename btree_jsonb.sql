@@ -1,6 +1,12 @@
 /*
-	how to use B-TREE index on a JSON <key>
+	how to use B-TREE index on a JSONB <key>
+	a) insert 25 Million rows into a table
+	b) create a btree index on a jsonb<key>
+	c) query table 
+	d) use explain so we can see btree-index was used.
 	
+	https://github.com/softwareNuggets/PostgreSQL_shorts_resources
+	btree_jsonb.sql
 	
 */
 drop table contact_table2;
@@ -43,7 +49,23 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- 
+
+
+SELECT *
+FROM contact_table2
+WHERE contact_info->>'phone'  = '000-175-9015';
+--4.6sec
+
+
+explain SELECT *
+FROM contact_table2
+WHERE contact_info->>'phone'  = '000-175-9015';
+
+
+
+
+-- on line 56, we will call the function we just wrote
+-- let's insert 25 million rows
 select populate_contacts(25000000);
 
 		
@@ -70,4 +92,7 @@ FROM contact_table2
 WHERE contact_info->>'phone'  in('000-999-9999','000-115-0015','000-200-0002');
 
 		
+explain SELECT *
+FROM contact_table2
+WHERE contact_info->>'phone'  in('000-999-9999','000-115-0015','000-200-0002');
 		
