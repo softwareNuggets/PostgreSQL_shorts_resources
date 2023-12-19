@@ -51,6 +51,16 @@ $$ LANGUAGE plpgsql;
 
 
 
+
+
+
+
+
+-- on line 56, we will call the function we just wrote
+-- let's insert 25 million rows
+select populate_contacts(25000000);
+
+		
 SELECT *
 FROM contact_table2
 WHERE contact_info->>'phone'  = '000-175-9015';
@@ -64,18 +74,11 @@ WHERE contact_info->>'phone'  = '000-175-9015';
 
 
 
--- on line 56, we will call the function we just wrote
--- let's insert 25 million rows
-select populate_contacts(25000000);
-
-		
-select count(*)
-from contact_table2
-
-
 create index idx_phone_btree
 	on contact_table2
 	using btree ((contact_info->>'phone'));
+
+
 
 
 SELECT *
