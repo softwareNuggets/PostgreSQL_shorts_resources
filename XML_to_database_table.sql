@@ -6,11 +6,12 @@
 
 DO $$
 DECLARE
-    first_name 		VARCHAR(30);
-    ssn 			VARCHAR(15);
-    first_name 		VARCHAR(30);
-	age				INT;
-	record 			XML;
+    	first_name 	VARCHAR(30);
+	first_name_val  varchar(30);
+	ssn_val 	varchar(15);
+    	ssn 		VARCHAR(15);
+	age		INT;
+	record 		XML;
 	
     xml_data XML := 
 	'<data>
